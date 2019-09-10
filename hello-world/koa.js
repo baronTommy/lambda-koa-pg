@@ -3,9 +3,13 @@ const Koa = require('Koa')
 const Router = require('koa-router');
 const myFunc = require('./myFunc');
 
+const DynamoDB = require('./dynamodb-client')
+const dbClient = new DynamoDB.DynamoDBClient('Task');
+
 // -------
 const app = new Koa();
 const router = new Router();
+// -------
 
 router
   .get('/koa', (ctx, next) => {
@@ -22,8 +26,25 @@ router
     ctx.body = `koa ${myFunc.foo.name}`
   })
 
+
+router
+  .get('/koa/dynamo_db', async (ctx, next) => {
+    const dbOutput = await dbClient.scan();
+    ctx.body = `koa ok`
+  })
+
 app
   .use(router.routes())
   .use(router.allowedMethods());
 
 module.exports.lambdaHandler = serverless(app);
+
+
+// テーブル定義作成
+// aws dynamodb create-table --cli-input-json file://hello-world/schema/task.json --endpoint-url http://127.0.0.1:8000
+
+// sam local invoke TaskFunction -e hello-world/data/put_event.json --env-vars hello-world/env.json
+
+
+// https://qiita.com/umeneri/items/6fb3f7560f4a878f6dfd
+// https://qiita.com/gzock/items/e0225fd71917c234acce

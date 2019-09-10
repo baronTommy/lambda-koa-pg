@@ -1,0 +1,9 @@
+version: '3'
+
+# https://qiita.com/umeneri/items/6fb3f7560f4a878f6dfd
+services:
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb
+    ports:
+      - 8000:8000
