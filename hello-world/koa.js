@@ -28,14 +28,20 @@ router
 
 
 router
+  .get('/koa/s3', (ctx, next) => {
+    ctx.body = `koa ${myFunc.bar.name}`
+  })
+
+
+router
   .get('/koa/dynamo_db', async (ctx, next) => {
-    const dbOutput = await dbClient.scan();
-    ctx.body = `koa ok`
+    await dbClient.scan()
+    ctx.body = `koa `
   })
 
 app
   .use(router.routes())
-  .use(router.allowedMethods());
+  .use(router.allowedMethods())
 
 module.exports.lambdaHandler = serverless(app);
 
@@ -45,6 +51,8 @@ module.exports.lambdaHandler = serverless(app);
 
 // sam local invoke TaskFunction -e hello-world/data/put_event.json --env-vars hello-world/env.json
 
-
 // https://qiita.com/umeneri/items/6fb3f7560f4a878f6dfd
 // https://qiita.com/gzock/items/e0225fd71917c234acce
+
+// docker-compose up -d
+// https://qiita.com/Yuki10/items/7a445a108b63b9298071

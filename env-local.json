@@ -1,0 +1,6 @@
+{
+  "S3DynamoFunction": {
+    "AWS_SAM_LOCAL": true
+  }
+}
+
