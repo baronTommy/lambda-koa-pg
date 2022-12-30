@@ -17,7 +17,7 @@
     "chai": "^4.2.0",
     "koa": "^2.8.1",
     "koa-router": "^7.4.0",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "serverless-http": "^2.3.0"
   }
 }
